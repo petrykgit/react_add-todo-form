@@ -35,6 +35,13 @@ export const AddTodoForm = ({ onSubmit }: AddTodoFormProps) => {
 
     const normalizedTitle = title.trim();
 
+    if (!normalizedTitle && ownerId === 0) {
+      setTitleError('Please enter a title');
+      setOwnerIdError('Please choose a user');
+
+      return;
+    }
+
     if (!normalizedTitle) {
       setTitleError('Please enter a title');
 
