@@ -84,7 +84,10 @@ export const AddTodoForm = ({ onSubmit }: AddTodoFormProps) => {
           id="userSelect"
           data-cy="userSelect"
           value={ownerId}
-          onChange={event => setOwnerId(+event.target.value)}
+          onChange={event => {
+            setOwnerIdError(null);
+            setOwnerId(+event.target.value);
+          }}
         >
           <option value="0" disabled>
             Choose a user
