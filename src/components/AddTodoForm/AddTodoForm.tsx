@@ -2,13 +2,14 @@ import { FormEvent, useState, ChangeEvent } from 'react';
 import { Nullable } from '../../domain/Nullable';
 import { Todo } from '../../domain/Todo';
 
-import users from '../../api/users';
+import { User } from '../../domain/User';
 
 type AddTodoFormProps = {
   onSubmit: (todo: Omit<Todo, 'id'>) => void;
+  users: User[];
 };
 
-export const AddTodoForm = ({ onSubmit }: AddTodoFormProps) => {
+export const AddTodoForm = ({ onSubmit, users }: AddTodoFormProps) => {
   const [title, setTitle] = useState('');
   const [titleError, setTitleError] = useState<Nullable<string>>(null);
 

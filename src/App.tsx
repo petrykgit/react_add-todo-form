@@ -14,15 +14,22 @@ export const App = () => {
   const [todos, setTodos] = useState(todosFromServer);
 
   const handleAddTodo = (todoWithoutID: Omit<Todo, 'id'>) => {
-    const maxId = Math.max(...todos.map(todo => todo.id));
+    setTodos(currentTodos => {
+      const maxId =
+        currentTodos.length > 0
+          ? Math.max(...currentTodos.map(todo => todo.id))
+          : 0;
 
-    setTodos(currentTodos => [
-      ...currentTodos,
-      {
-        ...todoWithoutID,
-        id: maxId + 1,
-      },
-    ]);
+      const newId = maxId + 1;
+
+      return [
+        ...currentTodos,
+        {
+          ...todoWithoutID,
+          id: newId, // Используем вычисленный newId
+        },
+      ];
+    });
   };
 
   const aggregatedTodos = todos.map(todo => {
@@ -40,7 +47,7 @@ export const App = () => {
     <div className="App">
       <h1>Add todo form</h1>
 
-      <AddTodoForm onSubmit={handleAddTodo} />
+      <AddTodoForm onSubmit={handleAddTodo} users={usersFromServer} />
 
       <TodoList todos={aggregatedTodos} />
     </div>
